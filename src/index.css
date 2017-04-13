@@ -8,3 +8,14 @@ html, body {
   align-items: stretch;
   font-family: 'Roboto', sans-serif;
 }
+
+header a {
+  color: white;
+  display: inline-flex;
+  padding: 5px 15px;
+  text-decoration: none;
+}
+
+header a:hover {
+  color: #cdcdcd;
+}

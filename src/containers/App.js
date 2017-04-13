@@ -2,6 +2,8 @@ import React from 'react';
 import { css } from 'glamor';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
+import Styles from '../styles';
+
 import { Home, NotFound } from '../routes';
 
 const appStyles = css({
@@ -12,7 +14,12 @@ const appStyles = css({
 
 const headerStyles = css({
   padding: '15px',
-  background: '#cdcdcd'
+  background: Styles.primary.normal,
+  display: 'flex'
+});
+
+const a = css({
+  flexGrow: 1
 });
 
 const articleStyles = css({
@@ -24,13 +31,17 @@ const articleStyles = css({
 
 const footerStyles = css({
   padding: '15px',
-  background: '#595959'
+  background: Styles.primary.dark,
+  color: '#fff'
 });
 
 export default () => (
   <section {...appStyles}>
     <header {...headerStyles}>
-      <nav>
+      <div {...css({ flexGrow: 5 })}><a href="/" {...css({ fontSize: '18px', textDecoration: 'none'})}>Estimatr</a></div>
+      <nav {...css({ display: 'flex', flexDirection: 'row-reverse' })}>
+        <a href="/">Home</a>
+        <a href="/">Home</a>
         <a href="/">Home</a>
       </nav>
     </header>
