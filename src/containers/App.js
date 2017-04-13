@@ -1,24 +1,49 @@
 import React from 'react';
-import glamorous from 'glamorous';
-const { Div } = glamorous;
+import { css } from 'glamor';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Home } from '../routes';
+import { Home, NotFound } from '../routes';
+
+const appStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  height: '100vh'
+});
+
+const headerStyles = css({
+  padding: '15px',
+  background: '#cdcdcd'
+});
+
+const articleStyles = css({
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 2,
+  padding: '15px'
+});
+
+const footerStyles = css({
+  padding: '15px',
+  background: '#595959'
+});
 
 export default () => (
-  <Div>
-    <header>
-      123
+  <section {...appStyles}>
+    <header {...headerStyles}>
+      <nav>
+        <a href="/">Home</a>
+      </nav>
     </header>
-    <article>
+    <article {...articleStyles}>
       <Router>
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route component={NotFound} />
         </Switch>
       </Router>
     </article>
-    <footer>
+    <footer {...footerStyles}>
       123 Footer
     </footer>
-  </Div>
+  </section>
 );

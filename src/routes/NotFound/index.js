@@ -2,7 +2,6 @@ import React from 'react';
 
 export default () => (
   <div>
-    <p>Hello World</p>
+    <h1>Doh... Not Found</h1>
   </div>
-);
-
+)
