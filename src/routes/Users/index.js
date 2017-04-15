@@ -5,7 +5,6 @@ export default class extends Component {
 
   constructor(props) {
     super(props);
-
     this.state = { users: [] };
   }
 
@@ -13,7 +12,10 @@ export default class extends Component {
     this.ref = Firebase.syncState('users', {
       context: this,
       state: 'users',
-      asArray: true
+      asArray: true,
+      queries: {
+        orderByChild: 'firstName'
+      }
     });
   }
 
@@ -27,7 +29,7 @@ export default class extends Component {
         <h2>Users</h2>
 
         {this.state.users.map(u => (
-          <div key={u.key}>{u.firstName}</div>
+          <div key={u.key}>{u.firstName} {u.lastName}</div>
         ))}
       </div>
     )
