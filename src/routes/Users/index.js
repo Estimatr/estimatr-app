@@ -14,7 +14,7 @@ export default class extends Component {
       state: 'users',
       asArray: true,
       queries: {
-        orderByChild: 'firstName'
+        orderByChild: 'lastName'
       }
     });
   }
@@ -28,9 +28,26 @@ export default class extends Component {
       <div>
         <h2>Users</h2>
 
-        {this.state.users.map(u => (
-          <div key={u.key}><a href={`/users/${u.key}`}>{u.firstName} {u.lastName}</a></div>
-        ))}
+        <table className="u-full-width">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+          {this.state.users.map(u => (
+            <tr key={u.key}>
+              <td><a href={`/users/${u.key}`}>{u.firstName} {u.lastName}</a></td>
+              <td>{u.email}</td>
+              <td></td>
+            </tr>
+          ))}
+          </tbody>
+        </table>
+
+
       </div>
     )
   }
