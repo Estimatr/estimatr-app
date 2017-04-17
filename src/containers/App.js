@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Styles from '../styles';
 
-import { Home, NotFound, Users, Services } from '../routes';
+import { Home, NotFound, Users, Services, Service, User } from '../routes';
 
 const appStyles = css({
   display: 'flex',
@@ -40,10 +40,9 @@ export default () => (
     <header {...headerStyles}>
       <div {...css({ flexGrow: 5 })}><a href="/" {...css({ fontSize: '18px', textDecoration: 'none' })}>Estimatr</a>
       </div>
-      <nav {...css({ display: 'flex', flexDirection: 'row-reverse' })}>
-        <a href="/">Home</a>
+      <nav {...css({ display: 'flex', flexDirection: 'row' })}>
         <a href="/users">Users</a>
-        <a href="/">Home</a>
+        <a href="/services">Services</a>
       </nav>
     </header>
     <article {...articleStyles}>
@@ -51,7 +50,9 @@ export default () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/users" component={Users} />
+          <Route path="/users/:id" component={User} />
           <Route exact path="/services" component={Services} />
+          <Route path="/services/:id" component={Service} />
           <Route component={NotFound} />
         </Switch>
       </Router>

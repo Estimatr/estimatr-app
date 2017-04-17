@@ -5,17 +5,14 @@ export default class extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { users: [] };
+    this.state = { service: {} };
   }
 
   componentDidMount() {
-    this.ref = Firebase.syncState('users', {
+    const { id } = this.props.match.params;
+    this.ref = Firebase.syncState(`services/${id}`, {
       context: this,
-      state: 'users',
-      asArray: true,
-      queries: {
-        orderByChild: 'firstName'
-      }
+      state: 'service',
     });
   }
 
@@ -26,13 +23,8 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h2>Users</h2>
-
-        {this.state.users.map(u => (
-          <div key={u.key}><a href={`/users/${u.key}`}>{u.firstName} {u.lastName}</a></div>
-        ))}
+        <h1>{this.state.service.item}</h1>
       </div>
     )
   }
-
 }
