@@ -1,12 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
+import AppLayout from './containers/Layout';
 import ReactTapPlugin from 'react-tap-event-plugin';
+import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import './index.css';
 
 ReactTapPlugin();
 
 ReactDOM.render(
-  <App />,
+  <ThemeProvider>
+    <AppLayout />
+  </ThemeProvider>,
   document.getElementById('root')
 );
