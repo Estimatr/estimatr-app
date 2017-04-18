@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Firebase from '../../firebase';
 
+import './User.css';
+
 export default class extends Component {
 
   constructor(props) {
@@ -10,6 +12,7 @@ export default class extends Component {
 
   componentDidMount() {
     const { id } = this.props.match.params;
+
     this.ref = Firebase.syncState(`users/${id}`, {
       context: this,
       state: 'user'
@@ -21,14 +24,32 @@ export default class extends Component {
   }
 
   render() {
+    const { firstName, lastName, email, hireDate } = this.state.user;
 
-    const { firstName, lastName } = this.state.user;
     return (
-      <div>
-        <h2>{firstName} {lastName}</h2>
+      <div className="user-details">
+        <h2>
+          {firstName} {lastName}
+        </h2>
+
+        <dl>
+          <div>
+            <dt>Email</dt>
+            <dd>{email}</dd>
+          </div>
+
+          <div>
+            <dt>Hire Date</dt>
+            <dd>{hireDate}</dd>
+          </div>
+
+          <div>
+            <dt>Hire Date</dt>
+            <dd>{hireDate}</dd>
+          </div>
+        </dl>
 
       </div>
     )
   }
-
 }

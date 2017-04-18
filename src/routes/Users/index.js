@@ -30,23 +30,22 @@ export default class extends Component {
 
         <table className="u-full-width">
           <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th></th>
-            </tr>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
           </thead>
           <tbody>
           {this.state.users.map(u => (
             <tr key={u.key}>
               <td><a href={`/users/${u.key}`}>{u.firstName} {u.lastName}</a></td>
               <td>{u.email}</td>
-              <td></td>
+              <td>Edit | Delete</td>
             </tr>
           ))}
           </tbody>
         </table>
-
 
       </div>
     )
