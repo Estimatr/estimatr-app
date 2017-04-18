@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Styles from '../styles';
 
-import { Home, NotFound, Users, Services, Service, User } from '../routes';
+import { Home, NotFound, Users, Services, Service, User, UpdateUser } from '../routes';
 
 const appStyles = css({
   display: 'flex',
@@ -29,6 +29,7 @@ const articleStyles = css({
   padding: '15px'
 });
 
+
 const footerStyles = css({
   padding: '15px',
   background: Styles.primary.dark,
@@ -50,6 +51,7 @@ export default () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/users" component={Users} />
+          <Route path="/users/edit/:id" component={UpdateUser} />
           <Route path="/users/:id" component={User} />
           <Route exact path="/services" component={Services} />
           <Route path="/services/:id" component={Service} />
@@ -62,3 +64,4 @@ export default () => (
     </footer>
   </section>
 );
+
