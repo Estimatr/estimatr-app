@@ -24,11 +24,7 @@ header a:hover {
 fieldset {
   display: flex;
   align-items: flex-end;
-  min-height: 55px; }
-  fieldset * {
-    display: flex; }
-  fieldset input[type=checkbox] {
-    margin-top: 15px; }
+  border: 0; }
 
 .actions {
   margin: 12px; }

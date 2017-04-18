@@ -14,7 +14,7 @@ export default class extends Component {
   }
 
   componentDidMount() {
-    this.ref = Base.syncState('users', {
+    this.ref = Base.bindToState('users', {
       context: this,
       state: 'users',
       asArray: true,
@@ -43,7 +43,8 @@ export default class extends Component {
     return user &&
       (
         <div>
-          Delete <strong>{user.firstName} {user.lastName}</strong>?
+          <p>Are you sure you want to delete?</p>
+          <p style={{ fontWeight: 'bold' }}>{user.firstName} {user.lastName}</p>
         </div>
       )
   };
@@ -53,16 +54,9 @@ export default class extends Component {
     Base.fetch('users', {
       context: this, asArray: true,
       then(users) {
-        this.setState({ users: users.filter(u => u.firstName.indexOf(search) > -1 || u.lastName.indexOf(search) > -1 || u.email.indexOf(search) > -1), search })
+        this.setState({ users: users.filter(u => u.firstname && u.firstName.indexOf(search) > -1 || u.lastName && u.lastName.indexOf(search) > -1 || u.email && u.email.indexOf(search) > -1), search })
       }
     });
-
-
-    // this.state.users
-    // )
-    // ;
-    // this.setState({ search, users });
-
   };
 
   render() {
@@ -88,8 +82,6 @@ export default class extends Component {
 
           <ToolbarGroup lastChild={true}>
             <TextField hintText="Filter" value={this.state.search} onChange={this.handleFilterChanged} type="search" />
-            <ToolbarSeparator />
-
             {
               this.state.selected.length > 0 ?
                 (
@@ -107,7 +99,7 @@ export default class extends Component {
 
         </div>
 
-        <Dialog open={this.state.deleteOpen} title="Are you sure?" modal={true} actions={actions}>
+        <Dialog open={this.state.deleteOpen} title="Delete" modal={true} actions={actions}>
           { this.renderDialog(this.state.users[this.state.selected.reduce((prev, current) => current, -1)])}
         </Dialog>
 

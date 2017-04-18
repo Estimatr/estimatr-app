@@ -7,7 +7,8 @@ export default class extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { firstName: '', lastName: '', email: '', isActive: true, hireDate: {} };
+    this.state = { firstName: '', lastName: '', email: '', isActive: true, hireDate: new Date() };
+    console.log(this.state);
   }
 
   componentDidMount() {
@@ -15,7 +16,7 @@ export default class extends Component {
 
     Firebase.fetch(`users/${id}`, { context: this })
       .then(user => {
-        this.setState(user);
+        this.setState(Object.assign({}, user, { hireDate: new Date(user.hireDate) }));
       });
   }
 
@@ -40,7 +41,7 @@ export default class extends Component {
         </fieldset>
 
         <fieldset>
-          <DatePicker hintText="Hire Date" value={this.state.hireDate} onChange={(e, hireDate) => this.setState({ hireDate })} container="inline" mode="landscape" required autoOk={false} fullWidth={true} />
+          <DatePicker hintText="Hire Date" defaultDate={this.state.hireDate} onChange={(e, hireDate) => this.setState({ hireDate: new Date(hireDate) })} container="inline" mode="landscape" required autoOk={true} fullWidth={true} />
         </fieldset>
 
         <fieldset>
