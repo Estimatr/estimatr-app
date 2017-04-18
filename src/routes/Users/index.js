@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import Firebase from '../../firebase';
 
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
+import { RaisedButton } from 'material-ui';
+
 export default class extends Component {
 
   constructor(props) {
     super(props);
-    this.state = { users: [] };
+    this.state = { users: [], selected: [] };
   }
 
   componentDidMount() {
@@ -26,27 +29,35 @@ export default class extends Component {
   render() {
     return (
       <div>
-        <h2>Users</h2>
+        <div>
+          {
+            this.state.selected.length > 0 ?
+              <div>
+                <RaisedButton label="Edit" secondary={true} onTouchTap={e => console.log(this.state.users[this.state.selected[0]])} />
+                <RaisedButton label="Delete" secondary={true} onTouchTap={e => console.log(this.state.users[this.state.selected[0]])} />
+              </div> :
+              <RaisedButton label="New" primary={true} onTouchTap={e => console.log('Tapped')} />
+          }
+        </div>
 
-        <table className="u-full-width">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          {this.state.users.map(u => (
-            <tr key={u.key}>
-              <td><a href={`/users/${u.key}`}>{u.firstName} {u.lastName}</a></td>
-              <td>{u.email}</td>
-              <td>Edit | Delete</td>
-            </tr>
-          ))}
-          </tbody>
-        </table>
-
+        <Table fixedHeader={true} onRowSelection={e => this.setState({ selected: e })}>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>First Name</TableHeaderColumn>
+              <TableHeaderColumn>Last Name</TableHeaderColumn>
+              <TableHeaderColumn>Email</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody deselectOnClickaway={false}>
+            {this.state.users.map(u => (
+              <TableRow key={u.key}>
+                <TableRowColumn>{u.firstName}</TableRowColumn>
+                <TableRowColumn>{u.lastName}</TableRowColumn>
+                <TableRowColumn>{u.email}</TableRowColumn>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
       </div>
     )
   }

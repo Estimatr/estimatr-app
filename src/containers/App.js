@@ -1,6 +1,7 @@
 import React from 'react';
 import { css } from 'glamor';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import ThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Styles from '../styles';
 
@@ -29,7 +30,6 @@ const articleStyles = css({
   padding: '15px'
 });
 
-
 const footerStyles = css({
   padding: '15px',
   background: Styles.primary.dark,
@@ -37,31 +37,33 @@ const footerStyles = css({
 });
 
 export default () => (
-  <section {...appStyles}>
-    <header {...headerStyles}>
-      <div {...css({ flexGrow: 5 })}><a href="/" {...css({ fontSize: '18px', textDecoration: 'none' })}>Estimatr</a>
-      </div>
-      <nav {...css({ display: 'flex', flexDirection: 'row' })}>
-        <a href="/users">Users</a>
-        <a href="/services">Services</a>
-      </nav>
-    </header>
-    <article {...articleStyles}>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route exact path="/users" component={Users} />
-          <Route path="/users/edit/:id" component={UpdateUser} />
-          <Route path="/users/:id" component={User} />
-          <Route exact path="/services" component={Services} />
-          <Route path="/services/:id" component={Service} />
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
-    </article>
-    <footer {...footerStyles}>
-      123 Footer
-    </footer>
-  </section>
+  <ThemeProvider>
+    <section {...appStyles}>
+      <header {...headerStyles}>
+        <div {...css({ flexGrow: 5 })}><a href="/" {...css({ fontSize: '18px', textDecoration: 'none' })}>Estimatr</a>
+        </div>
+        <nav {...css({ display: 'flex', flexDirection: 'row' })}>
+          <a href="/users">Users</a>
+          <a href="/services">Services</a>
+        </nav>
+      </header>
+      <article {...articleStyles}>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/users" component={Users} />
+            <Route path="/users/edit/:id" component={UpdateUser} />
+            <Route path="/users/:id" component={User} />
+            <Route exact path="/services" component={Services} />
+            <Route path="/services/:id" component={Service} />
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </article>
+      {/*<footer {...footerStyles}>*/}
+        {/*123 Footer*/}
+      {/*</footer>*/}
+    </section>
+  </ThemeProvider>
 );
 
