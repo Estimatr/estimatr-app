@@ -11,6 +11,7 @@ import Services from './Services';
 import Service from './Service';
 import User from './User';
 import UpdateUser from './User/UpdateUser';
+import UpdateService from './Service/UpdateService';
 
 export default () => (
   <Router>
@@ -23,6 +24,7 @@ export default () => (
       <Route path="/users/:id" component={User} />
 
       <Route exact path="/services" component={Services} />
+      <Route exact path="/services/new" component={UpdateService} />
       <Route path="/services/:id" component={Service} />
 
       <Route component={NotFound} />

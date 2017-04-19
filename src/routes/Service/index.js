@@ -21,7 +21,7 @@ export default class extends Component {
   }
 
   render() {
-    const { item, description, category, price, cost, margin, profit, sku } = this.state.service;
+    const { item, description, category, price, cost, margin, profit, sku, notes } = this.state.service;
     return (
       <div className="service-detail">
         <h1>{item}</h1>
@@ -60,6 +60,11 @@ export default class extends Component {
           <div>
             <dt>Margin</dt>
             <dd>${margin}</dd>
+          </div>
+
+          <div>
+            <dt>Notes</dt>
+            <dd>{notes}</dd>
           </div>
         </dl>
 
