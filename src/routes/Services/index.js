@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import Firebase from '../../firebase';
+import { RaisedButton, Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui';
+import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 export default class extends Component {
 
@@ -20,31 +22,43 @@ export default class extends Component {
     Firebase.removeBinding(this.ref);
   }
 
+  navigateToNew = () => this.props.history.push('/services/new');
+
   render() {
     return (
-      <div>
-        <h1>Services</h1>
+      <div className="Services">
 
-        <table className="u-full-width">
-          <thead>
-          <tr>
-            <th>Name</th>
-            <th>Price</th>
-            <th>Category</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            this.state.services.map(service => (
-              <tr key={service.key}>
-                <td><a href={`/services/edit/${service.key}`}>{service.itemName}</a></td>
-                <td>{service.sku}</td>
-                <td>{service.description}</td>
-              </tr>
-            ))
-          }
-          </tbody>
-        </table>
+        <Toolbar>
+
+          <ToolbarTitle text="Services" />
+
+          <ToolbarGroup lastChild={true}>
+
+            <RaisedButton label="New" primary={true} onTouchTap={this.navigateToNew} />
+
+          </ToolbarGroup>
+        </Toolbar>
+
+        <Table fixedHeader={true} onRowSelection={e => this.setState({ selected: e })}>
+          <TableHeader>
+            <TableRow>
+              <TableHeaderColumn>Name</TableHeaderColumn>
+              <TableHeaderColumn>SKU</TableHeaderColumn>
+              <TableHeaderColumn>Description</TableHeaderColumn>
+              <TableHeaderColumn>Price</TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody deselectOnClickaway={true}>
+            {this.state.services.map(service => (
+              <TableRow key={service.key}>
+                <TableRowColumn>{service.itemName}</TableRowColumn>
+                <TableRowColumn>{service.sku}</TableRowColumn>
+                <TableRowColumn>{service.description}</TableRowColumn>
+                <TableRowColumn>{service.price}</TableRowColumn>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
 
       </div>
     )

@@ -21,10 +21,10 @@ export default class extends Component {
   }
 
   render() {
-    const { item, description, category, price, cost, margin, profit, sku, notes } = this.state.service;
+    const { itemName, description, category, price, cost, margin, profit, sku, notes } = this.state.service;
     return (
       <div className="service-detail">
-        <h1>{item}</h1>
+        <h1>{itemName}</h1>
 
         <dl>
           <div>
