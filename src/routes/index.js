@@ -25,6 +25,7 @@ export default () => (
 
       <Route exact path="/services" component={Services} />
       <Route exact path="/services/new" component={UpdateService} />
+      <Route path="/services/edit/:id" component={UpdateService} />
       <Route path="/services/:id" component={Service} />
 
       <Route component={NotFound} />

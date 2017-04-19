@@ -1,26 +1,61 @@
 import React, { Component } from 'react';
 import Firebase from '../../firebase';
-import { TextField, DatePicker, Toggle, RaisedButton } from 'material-ui';
+import { TextField, RaisedButton } from 'material-ui';
 
 export default class extends Component {
 
   constructor(props) {
     super(props);
     this.state = { itemName: '', description: '', sku: '' };
-    console.log(this.state);
+
   }
 
   componentDidMount() {
     const { id } = this.props.match.params;
 
-    Firebase.syncState(`services/${id}`, { context: this })
-      .then(service => {
-        this.setState(Object.assign({}, service));
+    if (id) {
+      Firebase.fetch(`services/${id}`, {
+        context: this,
+        then(service) {
+          this.setState(service);
+        }
       });
+    }
   }
 
   onServiceSaved = e => {
     e.preventDefault();
+
+    const service = this.state;
+    const { history } = this.props;
+    const { id } = this.props.match.params;
+
+    if (!id) {
+      Firebase.push('services', {
+        context: this,
+        data: service,
+        then(err) {
+          if (!err) {
+            history.push('/services');
+          }
+        }
+      });
+    } else {
+      Firebase.post(`services/${id}`, {
+        context: this,
+        data: service,
+        then(err) {
+          if (!err) {
+            history.push('/services');
+            // this.props.history.push('/services');
+          }
+        }
+      })
+    }
+
+    // this.setState({
+    //   service: { service },
+    // })
   };
 
   render() {
@@ -44,6 +79,7 @@ export default class extends Component {
           <RaisedButton type="submit" primary={true} label="Save" className="button" />
         </div>
       </form>
+
     )
   }
 }

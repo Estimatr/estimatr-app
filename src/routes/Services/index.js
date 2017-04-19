@@ -36,10 +36,10 @@ export default class extends Component {
           <tbody>
           {
             this.state.services.map(service => (
-              <tr>
-                <td><a href={`/services/${service.key}`}>{service.item}</a></td>
-                <td>{service.price}</td>
-                <td>{service.category}</td>
+              <tr key={service.key}>
+                <td><a href={`/services/edit/${service.key}`}>{service.itemName}</a></td>
+                <td>{service.sku}</td>
+                <td>{service.description}</td>
               </tr>
             ))
           }

@@ -50,11 +50,11 @@ export default class extends Component {
   };
 
   handleFilterChanged = e => {
-    const search = e.target.value;
+    const search = e.target.value.toLowerCase();
     Base.fetch('users', {
       context: this, asArray: true,
       then(users) {
-        this.setState({ users: users.filter(u => u.firstname && u.firstName.indexOf(search) > -1 || u.lastName && u.lastName.indexOf(search) > -1 || u.email && u.email.indexOf(search) > -1), search })
+        this.setState({ users: users.filter(u => u.firstName && u.firstName.toLowerCase().indexOf(search) > -1 || u.lastName && u.lastName.toLowerCase().indexOf(search) > -1 || u.email && u.email.toLowerCase().indexOf(search) > -1), search })
       }
     });
   };
