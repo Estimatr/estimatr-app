@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Firebase from '../../firebase';
-import { RaisedButton, Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui';
+import { RaisedButton, Dialog, FlatButton, Toolbar, ToolbarGroup, ToolbarTitle } from 'material-ui';
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table';
 
 export default class extends Component {
@@ -24,7 +24,32 @@ export default class extends Component {
 
   navigateToNew = () => this.props.history.push('/services/new');
 
+  renderDialog = service => {
+
+    return service &&
+      (
+        <div>
+          <p>Are you sure you want to delete?</p>
+          <p style={{ fontWeight: 'bold' }}>{service.itemName}</p>
+        </div>
+      )
+  };
+
   render() {
+
+    const actions = [
+      <FlatButton
+        label="Cancel"
+        secondary={true}
+        onTouchTap={e => this.setState({ deleteOpen: false })}
+      />,
+      <FlatButton
+        label="OK"
+        primary={true}
+        onTouchTap={e => this.setState({ deleteOpen: false })}
+      />,
+    ];
+
     return (
       <div className="Services">
 
@@ -34,10 +59,20 @@ export default class extends Component {
 
           <ToolbarGroup lastChild={true}>
 
+            (
+            <div className="secondary-actions">
+              <RaisedButton label="Edit" secondary={true} onTouchTap={this.navigateToEdit} className="button" />
+              <RaisedButton label="Delete" secondary={true} onTouchTap={e => this.setState({ deleteOpen: !this.state.deleteOpen })} className="button" />
+            </div>) :
+
             <RaisedButton label="New" primary={true} onTouchTap={this.navigateToNew} />
 
           </ToolbarGroup>
         </Toolbar>
+
+        <Dialog open={this.state.deleteOpen} title="Delete" modal={true} actions={actions}>
+          { this.renderDialog(this.state.services[this.state.selected.reduce((prev, current) => current, -1)])}
+        </Dialog>
 
         <Table fixedHeader={true} onRowSelection={e => this.setState({ selected: e })}>
           <TableHeader>
