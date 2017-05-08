@@ -65,7 +65,7 @@ export default class extends Component {
       <form onSubmit={this.onServiceSaved}>
 
         <fieldset>
-          <TextField floatingLabelText="Item Name" value={this.state.itemName} onChange={e => this.setState({ itemName: e.target.value })} fullWidth={true} required minLength={2} />
+          <TextField type="string" floatingLabelText="Item Name" value={this.state.itemName} onChange={e => this.setState({ itemName: e.target.value })} fullWidth={true} required minLength={2} />
         </fieldset>
 
         <fieldset>
